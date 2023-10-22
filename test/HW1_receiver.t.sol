@@ -10,7 +10,6 @@ contract ReceiverTest is Test {
     NFTReceiver public _NFTReceiver;
 
     address user1 = makeAddr("user1");
-    address user2 = makeAddr("user2");
 
     function setUp() public {
         _NoUseful = new NoUseful();
