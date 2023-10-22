@@ -8,7 +8,7 @@ git clone https://github.com/max881230/HW_7.git
 
 2.
 ```shell
-cd contract
+cd HW_7
 ```
 
 3.
