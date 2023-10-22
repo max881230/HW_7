@@ -23,9 +23,9 @@ contract NFTTest is Test {
 
     function testActivateFail() public {
         vm.startPrank(user1);
-        // 根據我activate的規則：block number > activationTime = block.number + 30; 設定當前的block number 為31
+        // 根據我activate的規則：block number > activationTime = block.number + 30;
+        // 不去設定 blocknumber 導致不行 activate
         _myNFT.mint(user1);
-        string memory beforeURI = _myNFT.tokenURI(0);
         vm.expectRevert("you can't activate the NFT before activation time");
         _myNFT.activateNFT(0);
         vm.stopPrank();
