@@ -10,6 +10,7 @@ contract NFTTest is Test {
     address user1 = makeAddr("user1");
 
     function setUp() public {
+        vm.roll(0);
         _myNFT = new myNFT();
     }
 
@@ -20,15 +21,26 @@ contract NFTTest is Test {
         vm.stopPrank();
     }
 
-    function testActivate() public {
+    function testActivateFail() public {
         vm.startPrank(user1);
+        // 根據我activate的規則：block number > activationTime = block.number + 30; 設定當前的block number 為31
+        _myNFT.mint(user1);
+        string memory beforeURI = _myNFT.tokenURI(0);
+        vm.expectRevert("you can't activate the NFT before activation time");
+        _myNFT.activateNFT(0);
+        vm.stopPrank();
+    }
+
+    function testActivateSuccess() public {
+        vm.startPrank(user1);
+        // 根據我activate的規則：block number > activationTime = block.number + 30; 設定當前的block number 為31
+        vm.roll(31);
         _myNFT.mint(user1);
         string memory beforeURI = _myNFT.tokenURI(0);
         assertEq(
             beforeURI,
             "https://ipfs.io/ipfs/QmdeubcosWCsUkDSWSPohdKyDRTZZYxZBX61k6597qJRgv"
         );
-
         _myNFT.activateNFT(0);
         string memory afterURI = _myNFT.tokenURI(0);
         assertEq(

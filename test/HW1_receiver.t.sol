@@ -13,8 +13,8 @@ contract ReceiverTest is Test {
 
     function setUp() public {
         _NoUseful = new NoUseful();
-        _HW_Token = new HW_Token();
         _NFTReceiver = new NFTReceiver();
+        _HW_Token = _NFTReceiver._HW_Token();
     }
 
     function testMintNoUseful() public {
@@ -40,7 +40,7 @@ contract ReceiverTest is Test {
         uint beforeBalanceOf = _HW_Token.balanceOf(user1);
         _NoUseful.safeTransferFrom(user1, address(_NFTReceiver), 0);
         uint afterBalanceOf = _HW_Token.balanceOf(user1);
-        assertEq(afterBalanceOf, 1);
+        assertEq(afterBalanceOf - beforeBalanceOf, 1);
         vm.stopPrank();
     }
 }

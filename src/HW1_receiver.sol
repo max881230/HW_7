@@ -44,9 +44,9 @@ contract HW_Token is ERC721 {
 contract NFTReceiver is IERC721Receiver {
     HW_Token public _HW_Token;
 
-    // constructor() {
-    //     _HW_Token = new HW_Token();
-    // }
+    constructor() {
+        _HW_Token = new HW_Token();
+    }
 
     function onERC721Received(
         address,

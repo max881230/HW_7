@@ -22,16 +22,11 @@ contract myNFT is ERC721 {
     }
 
     function activateNFT(uint tokenId) external {
-        // require(
-        //     block.number > activationTime,
-        //     "you can't activate the NFT before activation time"
-        // );
+        require(
+            block.number > activationTime,
+            "you can't activate the NFT before activation time"
+        );
         tokenActivated[tokenId] = true;
-    }
-
-    function activate() external view returns (bool) {
-        // 只有当当前区块号大于等于 activationBlock 时返回 true
-        return block.number >= activationTime;
     }
 
     function tokenURI(
